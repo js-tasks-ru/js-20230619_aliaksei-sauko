@@ -15,7 +15,9 @@ function stringCompareWithUpperCaseFirstInRuEnLocales(s1, s2) {
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-  const result = arr.slice().sort(stringCompareWithUpperCaseFirstInRuEnLocales);
+  const sortFunction = param === 'desc' 
+    ? (s1, s2) => stringCompareWithUpperCaseFirstInRuEnLocales(s2, s1)
+    : (s1, s2) => stringCompareWithUpperCaseFirstInRuEnLocales(s1, s2);
 
-  return param === 'desc' ? result.reverse() : result;
+  return arr.slice().sort(sortFunction);
 }
