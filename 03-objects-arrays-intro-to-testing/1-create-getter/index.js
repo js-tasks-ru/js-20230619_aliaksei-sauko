@@ -30,5 +30,5 @@ function getProperty(obj, path) {
     return value;
   }
           
-  return undefined;    
+  return;    
 }
