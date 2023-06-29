@@ -4,6 +4,10 @@
  * @returns {function} - function-getter which allow get value from object by set path
  */
 export function createGetter(path) {
+  return (obj) => {
+    return getProperty(obj, path);
+  };
+}
 
 /**
  * getProperty - returns property value from object by properties path
