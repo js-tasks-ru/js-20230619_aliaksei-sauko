@@ -20,7 +20,7 @@ function getProperty(obj, path) {
   const firstKey = dotId > 0 ? path.slice(0, dotId) : path; 
   const nextKey = dotId > 0 ? path.slice(dotId + 1, path.length) : '';    
   
-  if (firstKey in obj) {
+  if (obj.hasOwnProperty(firstKey)) {
     const value = obj[firstKey];
 
     if (nextKey) {
