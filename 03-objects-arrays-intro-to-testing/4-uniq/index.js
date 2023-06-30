@@ -9,7 +9,7 @@ export function uniq(arr = []) {
          
   for (let i = 0; i < arr.length; i++) {
     if (currentItem === arr[i]) { 
-        continue;
+      continue;
     }
 
     currentItem = arr[i];
