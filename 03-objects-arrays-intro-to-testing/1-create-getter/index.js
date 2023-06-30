@@ -5,15 +5,6 @@
  */
 export function createGetter(path) {
   return (obj) => {
-    // IDEA TODO: NOT RELEFANT: get deep copy of the object;
-    // IDEA TODO: NOT RELEFANT use typeof, check type of the value
-           
-    // IDEA TODO: RELEVANT использовать конструкцию замыкания 
-    // FIX TODO: incorrect property splitter
-    // TODO: clear code;
-    // 07:00 29.06.23	js задача 1
-    // 09:08 29.06.23	done, pull request is ready
-    // FIX TODO: stop searching if primitive and 
     return getProperty(obj, path);
   };
 }
