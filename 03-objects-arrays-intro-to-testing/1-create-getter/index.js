@@ -4,5 +4,31 @@
  * @returns {function} - function-getter which allow get value from object by set path
  */
 export function createGetter(path) {
+  return (obj) => {
+    return getProperty(obj, path);
+  };
+}
 
+/**
+ * getProperty - returns property value from object by properties path
+ * @param {object} obj - object to get property value
+ * @param {string} path - the properties path separated by dot
+ * @returns property value
+ */
+function getProperty(obj, path) {
+  const dotId = path.indexOf('.');
+  const firstKey = dotId > 0 ? path.slice(0, dotId) : path; 
+  const nextKey = dotId > 0 ? path.slice(dotId + 1, path.length) : '';    
+  
+  if (!obj.hasOwnProperty(firstKey)) {
+    return;
+  }
+
+  const value = obj[firstKey];
+
+  if (nextKey) {
+    return getProperty(value, nextKey);
+  }
+
+  return value;
 }

@@ -56,4 +56,10 @@ describe('objects-arrays-intro-to-testing/create-getter', () => {
 
     expect(getter({more: {nested: {property: 1}}})).toEqual(1);
   });
+
+  it('gets a.a.a.a.a.a.a.a.a', () => {
+    const getter = createGetter('a.a.a.a.a.a.a.a.a');
+
+    expect(getter(({a: 42}))).toBeUndefined();
+  });
 });
