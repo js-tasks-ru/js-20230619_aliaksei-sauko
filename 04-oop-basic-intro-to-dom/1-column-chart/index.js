@@ -154,7 +154,7 @@ export default class ColumnChart {
 
   #calculateColumnProperties(value, chartHeight, defaultMaxDataValue) {
     const dataValue = Math.floor(defaultMaxDataValue * (value / chartHeight));
-    const percentValue = (value * 100 / this.chartHeight).toFixed(0);
+    const percentValue = (value * 100 / chartHeight).toFixed(0);
 
     return { value: dataValue, percent: percentValue };
   }
