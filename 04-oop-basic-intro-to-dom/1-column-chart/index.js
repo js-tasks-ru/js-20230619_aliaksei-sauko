@@ -25,11 +25,7 @@ export default class ColumnChart {
   }
     
   set data(value) {
-    if (!value || value === undefined) {
-      this._data = [];
-    } else {
-      this._data = value.slice(); 
-    }
+    this._data = !value ? [] : value.slice();
   }
 
   get defaultMaxDataValue () { return 50; }
