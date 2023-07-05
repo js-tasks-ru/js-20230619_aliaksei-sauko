@@ -46,7 +46,7 @@ export default class ColumnChart {
 
   update(data = []) {
     this.data = data;
-    this.renderContainerBody(this.data);
+    this.#renderContainerBody(this.data);
   }
 
   render() {
@@ -58,10 +58,10 @@ export default class ColumnChart {
       columnChartDiv.classList.add('column-chart_loading');
     }
 
-    const titleDiv = this.renderTitle(this.label);
+    const titleDiv = this.#renderTitle(this.label, this.link);
     columnChartDiv.append(titleDiv);
 
-    const containerDiv = this.renderContainer();
+    const containerDiv = this.#renderContainer();
     columnChartDiv.append(containerDiv);
 
     return columnChartDiv;
@@ -74,11 +74,11 @@ export default class ColumnChart {
     return this.data.length > 0;
   }
 
-  formatNumbers = function (value) {
+  #formatNumbers (value) {
     return new Intl.NumberFormat('en').format(value); 
   }
 
-  renderTitle = function (label) {
+  #renderTitle (label) {
     const titleDiv = document.createElement('div');
 
     titleDiv.innerHTML = typeof this.value === 'number' && this.data.length > 0 
@@ -98,24 +98,24 @@ export default class ColumnChart {
     return titleDiv;
   }
 
-  renderContainer = function() {
+  #renderContainer() {
     const containerDiv = document.createElement('div');
     containerDiv.className = 'column-chart__container';
 
-    const formattedValue = this.formatNumbers(this.value);
+    const formattedValue = this.#formatNumbers(this.value);
     const headerDiv = document.createElement('div');
     headerDiv.textContent = this.formatHeading ? this.formatHeading(formattedValue) : formattedValue;
     headerDiv.className = 'column-chart__header';
     headerDiv.setAttribute('data-element', 'header');
     containerDiv.append(headerDiv);
 
-    const bodyDiv = this.renderContainerBody(this.data);
+    const bodyDiv = this.#renderContainerBody(this.data);
     containerDiv.append(bodyDiv);
 
     return containerDiv;
   }
 
-  removeChildrens = function (element) {
+  #removeChildrens(element) {
     if (element.children === undefined || !element.children) {
       return;
     }
@@ -125,30 +125,30 @@ export default class ColumnChart {
     }  
   }
 
-  renderContainerBody = function(data) {
+  #renderContainerBody (data) {
     let bodyDiv = document.querySelector('.column-chart__chart');
     if (bodyDiv) {
-      this.removeChildrens(bodyDiv);
+      this.#removeChildrens(bodyDiv);
     } else {
       bodyDiv = document.createElement('div');
       bodyDiv.setAttribute('data-element', 'body');
       bodyDiv.className = 'column-chart__chart';
     }
 
-    const bodyItemDivs = this.renderContainerBodyDataDivs(data);
+    const bodyItemDivs = this.#renderContainerBodyDataDivs(data);
     bodyItemDivs.forEach(element => bodyDiv.append(element));
       
     return bodyDiv;
   }
 
-  renderContainerBodyDataDivs = function(data) {
-    return data.map(item => this.renderContainerBodyDataItemDiv(item));
+  #renderContainerBodyDataDivs = function(data) {
+    return data.map(item => this.#renderContainerBodyDataItemDiv(item));
   }
 
-  renderContainerBodyDataItemDiv = function(value) {
+  #renderContainerBodyDataItemDiv(value) {
     const itemDiv = document.createElement('div');
 
-    const columnProperties = this.calculateColumnProperties(value, this.chartHeight, this.defaultMaxDataValue);
+    const columnProperties = this.#calculateColumnProperties(value, this.chartHeight, this.defaultMaxDataValue);
 
     itemDiv.setAttribute('style', `--value: ${columnProperties.value}`);
     itemDiv.setAttribute('data-tooltip', `${columnProperties.percent}%`);
@@ -156,7 +156,7 @@ export default class ColumnChart {
     return itemDiv;
   }
 
-  calculateColumnProperties = function (value, chartHeight, defaultMaxDataValue) {
+  #calculateColumnProperties(value, chartHeight, defaultMaxDataValue) {
     const dataValue = Math.floor(defaultMaxDataValue * (value / chartHeight));
     const percentValue = (value * 100 / this.chartHeight).toFixed(0);
 
