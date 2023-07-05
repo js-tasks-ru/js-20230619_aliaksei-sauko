@@ -45,7 +45,7 @@ export default class ColumnChart {
 
   update(data = []) {
     this.data = data;
-    this.#renderContainerBody(this.data);
+    this.#renderContainerBody(this.data, this.element);
   }
 
   render() {
@@ -108,7 +108,7 @@ export default class ColumnChart {
     headerDiv.setAttribute('data-element', 'header');
     containerDiv.append(headerDiv);
 
-    const bodyDiv = this.#renderContainerBody(this.data);
+    const bodyDiv = this.#renderContainerBody(this.data, containerDiv);
     containerDiv.append(bodyDiv);
 
     return containerDiv;
@@ -124,8 +124,9 @@ export default class ColumnChart {
     }  
   }
 
-  #renderContainerBody(data) {
-    let bodyDiv = document.querySelector('.column-chart__chart');
+  #renderContainerBody(data, element) {
+    let bodyDiv = element.querySelector('.column-chart__chart');
+
     if (bodyDiv) {
       this.#removeChildrens(bodyDiv);
     } else {
