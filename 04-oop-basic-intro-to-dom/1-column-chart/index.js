@@ -115,7 +115,7 @@ export default class ColumnChart {
   }
 
   #removeChildrens(element) {
-    if (element.children === undefined || !element.children) {
+    if (!element?.children) {
       return;
     }
         
