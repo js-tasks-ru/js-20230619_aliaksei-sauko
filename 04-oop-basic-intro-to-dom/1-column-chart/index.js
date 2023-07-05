@@ -135,14 +135,10 @@ export default class ColumnChart {
       bodyDiv.className = 'column-chart__chart';
     }
 
-    const bodyItemDivs = this.#renderContainerBodyDataDivs(data);
+    const bodyItemDivs = data.map(item => this.#renderContainerBodyDataItemDiv(item));
     bodyItemDivs.forEach(element => bodyDiv.append(element));
-      
+    
     return bodyDiv;
-  }
-
-  #renderContainerBodyDataDivs = function(data) {
-    return data.map(item => this.#renderContainerBodyDataItemDiv(item));
   }
 
   #renderContainerBodyDataItemDiv(value) {
