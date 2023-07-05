@@ -74,11 +74,11 @@ export default class ColumnChart {
   //
   // private methods 
 
-  #formatNumbers (value) {
+  #formatNumbers(value) {
     return new Intl.NumberFormat('en').format(value); 
   }
 
-  #renderTitle (label, link) {
+  #renderTitle(label, link) {
     const titleDiv = document.createElement('div');
 
     titleDiv.innerHTML = typeof this.value === 'number' && this.data.length > 0 
@@ -125,7 +125,7 @@ export default class ColumnChart {
     }  
   }
 
-  #renderContainerBody (data) {
+  #renderContainerBody(data) {
     let bodyDiv = document.querySelector('.column-chart__chart');
     if (bodyDiv) {
       this.#removeChildrens(bodyDiv);
