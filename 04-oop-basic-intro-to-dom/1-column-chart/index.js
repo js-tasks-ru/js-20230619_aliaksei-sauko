@@ -10,10 +10,6 @@ export default class ColumnChart {
     this.value = value;
     this.formatHeading = formatHeading;
     
-    const maxDataValue = Math.max(...this.data);
-
-    this.chartHeight = maxDataValue && maxDataValue != -Infinity ? maxDataValue : this.defaultMaxDataValue;
-
     this.element = this.render();
   }
 
@@ -26,6 +22,9 @@ export default class ColumnChart {
     
   set data(value) {
     this._data = !value ? [] : value.slice();
+  
+    const maxDataValue = Math.max(...this._data);
+    this.chartHeight = maxDataValue && maxDataValue != -Infinity ? maxDataValue : this.defaultMaxDataValue;
   }
 
   get defaultMaxDataValue () { return 50; }
