@@ -118,9 +118,10 @@ export default class ColumnChart {
     if (!element?.children) {
       return;
     }
-        
-    for (let i = 0; i < element.children.length; i++) {
-      element.children[i].remove();
+
+    const childrenCount = element.children.length;    
+    for (let i = 0; i < childrenCount; i++) {
+      element.children[0].remove();
     }  
   }
 
