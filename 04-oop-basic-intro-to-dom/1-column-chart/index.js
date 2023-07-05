@@ -78,7 +78,7 @@ export default class ColumnChart {
     return new Intl.NumberFormat('en').format(value); 
   }
 
-  #renderTitle (label) {
+  #renderTitle (label, link) {
     const titleDiv = document.createElement('div');
 
     titleDiv.innerHTML = typeof this.value === 'number' && this.data.length > 0 
@@ -86,10 +86,10 @@ export default class ColumnChart {
       : `${label}`;
     titleDiv.className = 'column-chart__title';
 
-    if (this.link) {
+    if (link) {
       const linkA = document.createElement('a');
       linkA.className = 'column-chart__link';
-      linkA.href = this.link ? this.link : '#';
+      linkA.href = link ? link : '#';
       linkA.innerText = 'View all';
 
       titleDiv.append(linkA);
