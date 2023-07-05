@@ -66,13 +66,13 @@ export default class ColumnChart {
 
     return columnChartDiv;
   }
+  
+  hasData() {
+    return this.data.length > 0;
+  }
 
   //
   // private methods 
-
-  hasData = function() {
-    return this.data.length > 0;
-  }
 
   #formatNumbers (value) {
     return new Intl.NumberFormat('en').format(value); 
