@@ -1,20 +1,15 @@
 export default class ColumnChart {
 
-  constructor(options) {
+  constructor(options = {}) {
 
-    this.data = [];
-    this.label = '';
-    this.link = '';
-    this.value = 0;    
-            
-    if (options !== undefined && options) {
-      this.data = options.data || [];
-      this.label = options.label || '';
-      this.link = options.link || '';
-      this.value = options.value || 0; 
-      this.formatHeading = options.formatHeading;
-    }
-
+    const { data = [], label = '', link = '', value = 0, formatHeading = (text) => text } = options;
+    
+    this.data = data; 
+    this.label = label; 
+    this.link = link; 
+    this.value = value;
+    this.formatHeading = formatHeading;
+    
     const maxDataValue = Math.max(...this.data);
 
     this.chartHeight = maxDataValue && maxDataValue != -Infinity ? maxDataValue : this.defaultMaxDataValue;
