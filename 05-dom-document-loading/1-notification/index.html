@@ -6,6 +6,7 @@
 </head>
 
 <button id="btn1">Show simple message!</button>
+<div id="notification"></div>
 
 <script type="module">
   import NotificationMessage from './index.js';
@@ -16,6 +17,6 @@
       type: 'success'
     });
 
-    notification.show();
+    notification.show(document.getElementById('notification'));
   });
 </script>
