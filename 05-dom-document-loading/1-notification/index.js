@@ -38,8 +38,7 @@ export default class NotificationMessage {
       targetElement.append(this.element);
     }
 
-    const self = this;
-    this.timeout = setTimeout(()=>{ self.remove(); }, this.duration);
+    this.timeout = setTimeout(() => this.remove(), this.duration);
   }
 
   remove() {    
