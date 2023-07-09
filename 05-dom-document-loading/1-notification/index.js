@@ -66,12 +66,16 @@ export default class NotificationMessage {
 
   #generateRootElement() {
     const template = NotificationMessage.getTemplate();
-    const durationSec = this.duration / 1000;
+    const durationSec = this.#convertMsecToSeconds(this.duration);
 
     const templateElement = document.createElement('div');
     templateElement.innerHTML = NotificationMessage.fillTemplate(template, this.type, durationSec, this.message);
 
     return templateElement.querySelector('.notification');         
+  }
+
+  #convertMsecToSeconds(msec) {
+    return msec / 1000;
   }
 
   //
