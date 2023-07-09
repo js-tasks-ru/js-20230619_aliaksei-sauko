@@ -29,11 +29,11 @@ export default class NotificationMessage {
   //
   // methods
 
-  show(targetElement) {        
+  show(targetElement) {
     NotificationMessage.replaceCurrentNotification(this);
 
     this.#render();
-        
+
     if (targetElement) {
       targetElement.append(this.element);
     }
@@ -41,10 +41,10 @@ export default class NotificationMessage {
     this.timeout = setTimeout(() => this.remove(), this.duration);
   }
 
-  remove() {    
+  remove() {
     this.element?.remove();
   }
-                    
+
   destroy() {
     clearTimeout(this.timeout);
 
@@ -70,7 +70,7 @@ export default class NotificationMessage {
     const templateElement = document.createElement('div');
     templateElement.innerHTML = NotificationMessage.fillTemplate(template, this.type, durationSec, this.message);
 
-    return templateElement.querySelector('.notification');         
+    return templateElement.querySelector('.notification');
   }
 
   #convertMsecToSeconds(msec) {
@@ -90,9 +90,9 @@ export default class NotificationMessage {
 
   static fillTemplate(template, type, durationSec, message) {
     return template
-                .replace(/__TYPE__/g, type)
-                .replace(/__DURATION__/g, durationSec)
-                .replace(/__MESSAGE__/g, message);
+      .replace(/__TYPE__/g, type)
+      .replace(/__DURATION__/g, durationSec)
+      .replace(/__MESSAGE__/g, message);
   }
 
   static getTemplate() {
