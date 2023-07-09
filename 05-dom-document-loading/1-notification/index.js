@@ -1,7 +1,9 @@
+import { NotificationType } from './constants/notification-type.js';
+
 export default class NotificationMessage {
 
   constructor(message = '', options = {}) {
-    const {duration = 2000, type = 'success'} = options;
+    const { duration = 2000, type = NotificationType.success } = options;
 
     this.message = message;
     this.duration = duration;
@@ -14,7 +16,9 @@ export default class NotificationMessage {
   // properties
 
   set type(value) {
-    this._type = value !== 'success' && value !== 'error' ? 'success' : value;
+    this._type = (value === NotificationType.success || value === NotificationType.error)
+      ? value
+      : NotificationType.success;
   }
 
   get type() {
