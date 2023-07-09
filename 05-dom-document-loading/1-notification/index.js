@@ -73,11 +73,11 @@ export default class NotificationMessage {
   // static
 
   static replaceCurrentNotification(notification) {
-    if (this.notification) {
-      this.notification.remove();
+    if (this.currentNotification) {
+      this.currentNotification.remove();
     }
 
-    this.notification = notification;
+    this.currentNotification = notification;
   }
 
   static fillTemplate(template, type, durationSec, message) {
