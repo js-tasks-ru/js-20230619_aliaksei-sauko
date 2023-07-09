@@ -40,7 +40,6 @@ export class BodyRowTemplate {
 
   #generateCellElements(headerConfig, rowItem) {
     const columnElements = [];
-    console.log(JSON.stringify(rowItem));
 
     for (const key in rowItem) {
       if (!Object.hasOwnProperty.call(rowItem, key)) {

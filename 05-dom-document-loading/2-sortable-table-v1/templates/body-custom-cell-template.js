@@ -22,7 +22,6 @@ export class BodyCustomCellTemplate {
   #generateRootElement(data = [], templateRender = () => { }) {
     const template = document.createElement('div');
     template.innerHTML = templateRender(data);
-    console.log(template.innerHTML);
 
     return template.firstElementChild;
   }
