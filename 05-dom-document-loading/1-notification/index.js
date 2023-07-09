@@ -1,9 +1,10 @@
 import { NotificationType } from './constants/notification-type.js';
 
 export default class NotificationMessage {
+  static defaultDuration = 2000;
 
   constructor(message = '', options = {}) {
-    const { duration = 2000, type = NotificationType.success } = options;
+    const { duration = NotificationMessage.defaultDuration, type = NotificationType.success } = options;
 
     this.message = message;
     this.duration = duration;
