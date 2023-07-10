@@ -1,10 +1,10 @@
 export default class NotificationMessage {
-  static defaultDuration = 2000;
+  static NOTIFICATION_DEFAULT_DURATION = 2000;
   static NOTIFICATION_SUCCESS = 'success';
   static NOTIFICATION_ERROR = 'error';
 
   constructor(message = '', options = {}) {
-    const { duration = NotificationMessage.defaultDuration, type = NotificationMessage.NOTIFICATION_SUCCESS } = options;
+    const { duration = NotificationMessage.NOTIFICATION_DEFAULT_DURATION, type = NotificationMessage.NOTIFICATION_SUCCESS } = options;
 
     this.message = message;
     this.duration = duration;
