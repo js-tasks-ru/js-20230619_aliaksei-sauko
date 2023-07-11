@@ -1,7 +1,6 @@
 import { HeaderTemplate } from "./templates/header-template.js";
 import { BodyTemplate } from "./templates/body-template.js";
 import { compare } from "./helpers/comparer-helper.js";
-import { removeChildren } from "./helpers/element-helper.js";
 
 export default class SortableTable {
   constructor(headerConfig = [], data = []) {
@@ -45,7 +44,7 @@ export default class SortableTable {
   
   #update() {
     const parent = this.element.parentElement;
-    removeChildren(parent);
+    parent.innerHTML = '';
 
     this.#render();
 
