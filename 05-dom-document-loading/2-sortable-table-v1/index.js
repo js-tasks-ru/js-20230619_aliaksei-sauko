@@ -11,7 +11,14 @@ export default class SortableTable {
   }
 
   get subElements() {
-    return this.element.querySelector('.sortable-table__body');
+    const dataElements = this.element.querySelectorAll('[data-element]');
+    const elements = {};
+
+    dataElements.forEach(e => {
+      elements[e.dataset.element] = e;
+    });
+
+    return elements;
   }
 
   //
