@@ -1,8 +1,9 @@
 import { HeaderCellTemplate } from "./header-cell-template.js";
 
 export class HeaderTemplate {
-  constructor(headerConfig = []) {
+  constructor(headerConfig = [], sorted = {}) {
     this.headerConfig = headerConfig;
+    this.sorted = sorted; // { id, order }
 
     this.#render();
   }
@@ -21,7 +22,7 @@ export class HeaderTemplate {
 
   #generateRootElement(headerConfig = []) {
     const headerCellElements = headerConfig
-      .map(h => { return new HeaderCellTemplate(h); })
+      .map(h => { return new HeaderCellTemplate(h, h.id === this.sorted.id ? this.sorted.order : ''); })
       .map(t => t.element);
 
     const template = document.createElement('div');
