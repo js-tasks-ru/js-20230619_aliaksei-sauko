@@ -1,7 +1,6 @@
 import { HeaderTemplate } from "../../05-dom-document-loading/2-sortable-table-v1/templates/header-template.js";
 import { BodyTemplate } from "../../05-dom-document-loading/2-sortable-table-v1/templates/body-template.js";
 import { compare } from "../../05-dom-document-loading/2-sortable-table-v1/helpers/comparer-helper.js";
-import { removeChildren } from "../../05-dom-document-loading/2-sortable-table-v1/helpers/element-helper.js";
 import { HeaderCellTemplate } from "../../05-dom-document-loading/2-sortable-table-v1/templates/header-cell-template.js";
 
 export default class SortableTable {
@@ -90,7 +89,7 @@ export default class SortableTable {
 
   #update() {
     const parent = this.element.parentElement;
-    removeChildren(parent);
+    parent.innerHTML = '';
 
     this.#render();
 
