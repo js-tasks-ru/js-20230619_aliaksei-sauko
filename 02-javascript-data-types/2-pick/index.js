@@ -5,7 +5,20 @@
  * @returns {object} - returns the new object
  */
 export const pick = (obj, ...fields) => {
-  const resultObjectFields = Object.entries(obj).filter(([key, _]) => fields.includes(key));
-    
-  return Object.fromEntries(resultObjectFields);
+  // process array of fields
+  const keys = Array.isArray(fields[0]) ? fields[0] : fields;
+
+  // filter properties
+  const resultObjectFields = Object.entries(obj).filter(([key, _]) => keys.includes(key));
+  
+  // order properties
+  const entries = [];
+  keys.forEach(f => {
+    const item = resultObjectFields.find(([key, _])=> key === f);
+    if (item) {
+      entries.push(item);
+    }
+  });
+
+  return Object.fromEntries(entries);
 };
