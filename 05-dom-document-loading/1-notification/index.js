@@ -1,10 +1,10 @@
-import { NotificationType } from './constants/notification-type.js';
-
 export default class NotificationMessage {
-  static defaultDuration = 2000;
+  static NOTIFICATION_DEFAULT_DURATION = 2000;
+  static NOTIFICATION_SUCCESS = 'success';
+  static NOTIFICATION_ERROR = 'error';
 
   constructor(message = '', options = {}) {
-    const { duration = NotificationMessage.defaultDuration, type = NotificationType.success } = options;
+    const { duration = NotificationMessage.NOTIFICATION_DEFAULT_DURATION, type = NotificationMessage.NOTIFICATION_SUCCESS } = options;
 
     this.message = message;
     this.duration = duration;
@@ -17,9 +17,9 @@ export default class NotificationMessage {
   // properties
 
   set type(value) {
-    this._type = (value === NotificationType.success || value === NotificationType.error)
+    this._type = (value === NotificationMessage.NOTIFICATION_SUCCESS || value === NotificationMessage.NOTIFICATION_ERROR)
       ? value
-      : NotificationType.success;
+      : NotificationMessage.NOTIFICATION_SUCCESS;
   }
 
   get type() {

@@ -14,6 +14,13 @@ describe('javascript-data-types/pick', () => {
     expect(pick(obj, 'foo', 'bar')).toEqual({foo: 'foo', bar: 'bar'});
     expect(pick(obj, 'foo', 'bar')).toEqual({foo: 'foo', bar: 'bar'});
   });
+  
+  it('should return new object with an ordered array of fields', () => {
+    const obj = {foo: 'foo', bar: 'bar', baz: 'baz'};
+    
+    expect(pick(obj, ['bar', 'foo'])).toEqual({bar: 'bar', foo: 'foo'});
+    expect(pick(obj, ['baz', 'foo', 'bar'])).toEqual({baz: 'baz', foo: 'foo', bar: 'bar'});
+  });
 
   it('should return an empty object if passed fields does not found', () => {
     const obj = {foo: 'foo', bar: 'bar'};
