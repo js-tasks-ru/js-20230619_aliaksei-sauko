@@ -24,7 +24,7 @@ export class HeaderCellTemplate {
 
   static fillTemplate(id, title, sortable, order = '') {
     const template = HeaderCellTemplate.getTemplate();
-    const sortArrowTemplate = order ? generateElement(this.getSortArrowTemplate()) : '';
+    const sortArrowTemplate = order ? this.getSortArrowTemplate() : '';
 
     return template
       .replace(/__ID__/g, id)
