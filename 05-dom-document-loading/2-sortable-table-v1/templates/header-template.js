@@ -1,4 +1,5 @@
 import { HeaderCellTemplate } from "./header-cell-template.js";
+import { generateElement } from "../helpers/element-helper.js";
 
 export class HeaderTemplate {
   constructor(headerConfig = [], sorted = {}) {
@@ -8,31 +9,21 @@ export class HeaderTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.headerConfig = null;
-    this.element = null;
-  }
-
   //
   // private
 
   #render() {
-    this.element = this.#generateRootElement(this.headerConfig);
-  }
+    const headerCellElements = this.headerConfig
+    .map(h => { return new HeaderCellTemplate(h, h.id === this.sorted.id ? this.sorted.order : ''); })
+    .map(h => h.element);
 
-  #generateRootElement(headerConfig = []) {
-    const headerCellElements = headerConfig
-      .map(h => { return new HeaderCellTemplate(h, h.id === this.sorted.id ? this.sorted.order : ''); })
-      .map(t => t.element);
-
-    const template = document.createElement('div');
-    template.innerHTML = HeaderTemplate.getTemplate();
+    const template = generateElement(HeaderTemplate.getTemplate());
 
     headerCellElements.forEach(element => {
-      template.firstElementChild.append(element);
+      template.append(element);
     });
 
-    return template.firstElementChild;
+    this.element = template;
   }
 
   //

@@ -1,3 +1,5 @@
+import { generateElement } from "../helpers/element-helper.js";
+
 export class BodyCellTemplate {
   constructor(options = {}) {
     const { value = '' } = options;
@@ -7,23 +9,11 @@ export class BodyCellTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.value = null;
-    this.element = null;
-  }
-
   //
   // private
 
   #render() {
-    this.element = this.#generateRootElement(this.value);
-  }
-
-  #generateRootElement(value = '') {
-    const template = document.createElement('div');
-    template.innerHTML = BodyCellTemplate.fillTemplate(value);
-
-    return template.firstElementChild;
+    this.element = generateElement(BodyCellTemplate.fillTemplate(this.value));
   }
 
   //

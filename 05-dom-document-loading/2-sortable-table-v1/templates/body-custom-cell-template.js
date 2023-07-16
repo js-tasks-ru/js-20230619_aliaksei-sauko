@@ -1,3 +1,5 @@
+import { generateElement } from "../helpers/element-helper.js";
+
 export class BodyCustomCellTemplate {
   constructor(data = [], templateRender = () => { }) {
     this.data = data;
@@ -6,23 +8,10 @@ export class BodyCustomCellTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.data = null;
-    this.templateRender = null;
-    this.element = null;
-  }
-
   //
   // private
 
   #render() {
-    this.element = this.#generateRootElement(this.data, this.templateRender);
-  }
-
-  #generateRootElement(data = [], templateRender = () => { }) {
-    const template = document.createElement('div');
-    template.innerHTML = templateRender(data);
-
-    return template.firstElementChild;
+    this.element = generateElement(this.templateRender(this.data));
   }
 }

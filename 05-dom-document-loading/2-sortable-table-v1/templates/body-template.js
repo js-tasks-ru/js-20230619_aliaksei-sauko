@@ -1,5 +1,6 @@
 import { BodyRowTemplate } from "./body-row-template.js";
 import { pick } from "../../../02-javascript-data-types/2-pick/index.js";
+import { generateElement } from "../helpers/element-helper.js";
 
 export class BodyTemplate {
   constructor(headerConfig = [], data = []) {
@@ -7,12 +8,6 @@ export class BodyTemplate {
     this.data = data;
 
     this.#render();
-  }
-
-  destroy() {
-    this.headerConfig = null;
-    this.data = null;
-    this.element = null;
   }
 
   //
@@ -23,8 +18,7 @@ export class BodyTemplate {
   }
 
   #generateRootElement(headerConfig = [], data = []) {
-    const template = document.createElement('div');
-    template.innerHTML = BodyTemplate.getTemplate();
+    const template = generateElement(BodyTemplate.getTemplate());
 
     data.forEach(item => {
       const headerIds = headerConfig.map(h => h.id);
@@ -32,10 +26,10 @@ export class BodyTemplate {
       const rowItem = pick(item, headerIds);
       const rowTemplate = new BodyRowTemplate({ headerConfig, rowItem });
 
-      template.firstElementChild.append(rowTemplate.element);
+      template.append(rowTemplate.element);
     });
 
-    return template.firstElementChild;
+    return template;
   }
 
   //

@@ -1,3 +1,5 @@
+import { generateElement } from "../helpers/element-helper.js";
+
 export class HeaderCellTemplate {
   constructor(options = {}, order = '') {
     const { id = '', title = '', sortable = true } = options;
@@ -14,29 +16,15 @@ export class HeaderCellTemplate {
   // private
 
   #render() {
-    this.element = this.#generateRootElement(this.id, this.title, this.sortable, this.order);
-  }
-
-  #generateRootElement(id = '', title = '', sortable = true, order = '') {
-    const template = document.createElement('div');
-    template.innerHTML = HeaderCellTemplate.fillTemplate(id, title, sortable, order);
-
-    return template.firstElementChild;
+    this.element = generateElement(HeaderCellTemplate.fillTemplate(this.id, this.title, this.sortable, this.order));
   }
 
   //
   // static
 
-  static generateSortArrowElement() {
-    const template = document.createElement('div');
-    template.innerHTML = this.getSortArrowTemplate();
-
-    return template.firstElementChild;
-  }
-
   static fillTemplate(id, title, sortable, order = '') {
     const template = HeaderCellTemplate.getTemplate();
-    const sortArrowTemplate = order ? this.getSortArrowTemplate() : '';
+    const sortArrowTemplate = order ? generateElement(this.getSortArrowTemplate()) : '';
 
     return template
       .replace(/__ID__/g, id)
