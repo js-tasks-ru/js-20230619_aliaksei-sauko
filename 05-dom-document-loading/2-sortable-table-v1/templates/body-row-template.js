@@ -1,5 +1,6 @@
 import { BodyCellTemplate } from "./body-cell-template.js";
 import { BodyCustomCellTemplate } from "./body-custom-cell-template.js";
+import { generateElement } from "../helpers/element-helper.js";
 
 export class BodyRowTemplate {
   constructor(options = {}) {
@@ -28,14 +29,13 @@ export class BodyRowTemplate {
   }
 
   #generateRootElement(href, columnElements = []) {
-    const template = document.createElement('div');
-    template.innerHTML = BodyRowTemplate.fillTemplate(href);
+    const template = generateElement(BodyRowTemplate.fillTemplate(href));
 
     columnElements.forEach(element => {
-      template.firstElementChild.append(element);
+      template.append(element);
     });
 
-    return template.firstElementChild;
+    return template;
   }
 
   #generateCellElements(headerConfig, rowItem) {

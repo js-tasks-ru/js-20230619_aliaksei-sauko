@@ -1,6 +1,7 @@
 import { HeaderTemplate } from "./templates/header-template.js";
 import { BodyTemplate } from "./templates/body-template.js";
 import { compare } from "./helpers/comparer-helper.js";
+import { generateElement } from "./helpers/element-helper.js";
 
 export default class SortableTable {
   constructor(headerConfig = [], data = []) {
@@ -59,16 +60,16 @@ export default class SortableTable {
   }
    
   #generateRootElement(headerConfig = [], data = []) {
-    const template = document.createElement('div');
-    template.innerHTML = SortableTable.getTemplate();
+    
+    const template = generateElement(SortableTable.getTemplate());
   
-    const header = new HeaderTemplate(headerConfig);
-    template.firstElementChild.append(header.element);
+    const headerElement = new HeaderTemplate(headerConfig);
+    template.append(headerElement.element);
 
-    const body = new BodyTemplate(headerConfig, data); 
-    template.firstElementChild.append(body.element);    
+    const bodyElement = new BodyTemplate(headerConfig, data); 
+    template.append(bodyElement.element);    
         
-    return template.firstElementChild;
+    return template;
   }
 
   //
