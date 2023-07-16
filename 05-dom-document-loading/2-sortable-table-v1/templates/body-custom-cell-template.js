@@ -8,12 +8,6 @@ export class BodyCustomCellTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.data = null;
-    this.templateRender = null;
-    this.element = null;
-  }
-
   //
   // private
 

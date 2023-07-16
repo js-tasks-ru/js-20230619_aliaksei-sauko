@@ -13,12 +13,6 @@ export class BodyRowTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.href = null;
-    this.rowItem = null;
-    this.element = null;
-  }
-
   //
   // private
 

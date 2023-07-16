@@ -9,11 +9,6 @@ export class BodyCellTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.value = null;
-    this.element = null;
-  }
-
   //
   // private
 

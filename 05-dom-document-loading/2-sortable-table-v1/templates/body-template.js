@@ -10,12 +10,6 @@ export class BodyTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.headerConfig = null;
-    this.data = null;
-    this.element = null;
-  }
-
   //
   // private
 

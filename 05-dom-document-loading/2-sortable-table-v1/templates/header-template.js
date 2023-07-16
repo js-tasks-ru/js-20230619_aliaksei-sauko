@@ -9,11 +9,6 @@ export class HeaderTemplate {
     this.#render();
   }
 
-  destroy() {
-    this.headerConfig = null;
-    this.element = null;
-  }
-
   //
   // private
 
