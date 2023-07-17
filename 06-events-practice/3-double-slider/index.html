@@ -6,12 +6,19 @@
 </head>
 <body>
   <div id="root"></div>
+  <div><span id="selectedValues"></span></div>
 
   <script type="module">
     import DoubleSlider from './index.js';
 
-    const slider = new DoubleSlider();
+    const slider = new DoubleSlider({ min: 100, max: 200 });
 
     root.append(slider.element);
+
+    root.addEventListener('range-select', function (event) {
+      const slectedValuesElement = document.getElementById('selectedValues');
+      slectedValuesElement.innerHTML = JSON.stringify(event.detail);
+    });
+
   </script>
 </body>
