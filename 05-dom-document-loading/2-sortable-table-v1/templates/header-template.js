@@ -1,5 +1,5 @@
 import { HeaderCellTemplate } from "./header-cell-template.js";
-import { generateElement } from "../helpers/element-helper.js";
+import { generateElement } from "../../../common/helpers/element-helper.js";
 
 export class HeaderTemplate {
   constructor(headerConfig = [], sorted = {}) {

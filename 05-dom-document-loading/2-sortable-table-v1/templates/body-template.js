@@ -1,6 +1,6 @@
 import { BodyRowTemplate } from "./body-row-template.js";
 import { pick } from "../../../02-javascript-data-types/2-pick/index.js";
-import { generateElement } from "../helpers/element-helper.js";
+import { generateElement } from "../../../common/helpers/element-helper.js";
 
 export class BodyTemplate {
   constructor(headerConfig = [], data = []) {

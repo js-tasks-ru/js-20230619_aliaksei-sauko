@@ -1,8 +1,8 @@
 import { HeaderTemplate } from "../../05-dom-document-loading/2-sortable-table-v1/templates/header-template.js";
 import { BodyTemplate } from "../../05-dom-document-loading/2-sortable-table-v1/templates/body-template.js";
-import { compare } from "../../05-dom-document-loading/2-sortable-table-v1/helpers/comparer-helper.js";
+import { compare } from "../../common/helpers/comparer-helper.js";
 import { HeaderCellTemplate } from "../../05-dom-document-loading/2-sortable-table-v1/templates/header-cell-template.js";
-import { generateElement } from "../../05-dom-document-loading/2-sortable-table-v1/helpers/element-helper.js";
+import { generateElement } from "../../common/helpers/element-helper.js";
 
 export default class SortableTable {
   static ORDER_ASC = 'asc';

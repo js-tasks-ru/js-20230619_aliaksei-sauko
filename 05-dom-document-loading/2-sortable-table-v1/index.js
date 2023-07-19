@@ -1,7 +1,7 @@
 import { HeaderTemplate } from "./templates/header-template.js";
 import { BodyTemplate } from "./templates/body-template.js";
-import { compare } from "./helpers/comparer-helper.js";
-import { generateElement } from "./helpers/element-helper.js";
+import { compare } from "../../common/helpers/comparer-helper.js";
+import { generateElement } from "../../common/helpers/element-helper.js";
 
 export default class SortableTable {
   constructor(headerConfig = [], data = []) {
