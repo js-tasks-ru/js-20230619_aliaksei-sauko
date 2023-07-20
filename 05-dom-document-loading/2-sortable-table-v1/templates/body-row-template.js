@@ -1,6 +1,6 @@
 import { BodyCellTemplate } from "./body-cell-template.js";
 import { BodyCustomCellTemplate } from "./body-custom-cell-template.js";
-import { generateElement } from "../helpers/element-helper.js";
+import { generateElement } from "../../../common/helpers/element-helper.js";
 
 export class BodyRowTemplate {
   constructor(options = {}) {

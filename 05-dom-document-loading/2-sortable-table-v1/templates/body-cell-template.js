@@ -1,4 +1,4 @@
-import { generateElement } from "../helpers/element-helper.js";
+import { generateElement } from "../../../common/helpers/element-helper.js";
 
 export class BodyCellTemplate {
   constructor(options = {}) {
