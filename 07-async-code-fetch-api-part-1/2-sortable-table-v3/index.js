@@ -18,7 +18,7 @@ export default class SortableTable extends BaseSortableTable {
     this.render();
   }
   
-  async render() {
+  render() {
     this.appendHeaderElements(this.headerConfig, this.sorted);
     
     return this.sort(this.sorted.id, this.sorted.order);
@@ -40,7 +40,7 @@ export default class SortableTable extends BaseSortableTable {
     return this.data.sort(sortFunction);
   }
 
-  async sortOnServer(id, order) {
+  sortOnServer(id, order) {
     this.sorted = { id, order };
 
     const start = 0;
@@ -59,7 +59,7 @@ export default class SortableTable extends BaseSortableTable {
     this.isSortLocally = null;
   }
 
-  async sort(field = '', order = 'asc') {
+  sort(field = '', order = 'asc') {
     super.sort(field, order);
 
     this.showLoading();
@@ -80,7 +80,7 @@ export default class SortableTable extends BaseSortableTable {
     } 
   }
 
-  async loadData(take, skip) {
+  loadData(take, skip) {
     const end = skip + take;
 
     return this.#fetchData(this.sorted.id, this.sorted.order, skip, end);
@@ -95,7 +95,7 @@ export default class SortableTable extends BaseSortableTable {
     this.hideLoading();
   }
 
-  async #fetchData(sortColumnId, order, start, end) {
+  #fetchData(sortColumnId, order, start, end) {
     const endpointUrl = new URL(this.url, BACKEND_URL);
 
     endpointUrl.searchParams.set('_sort', sortColumnId);
@@ -103,6 +103,6 @@ export default class SortableTable extends BaseSortableTable {
     endpointUrl.searchParams.set('_start', start);
     endpointUrl.searchParams.set('_end', end);
 
-    return await fetchJson(endpointUrl);
+    return fetchJson(endpointUrl);
   }
 }

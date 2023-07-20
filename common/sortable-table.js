@@ -68,11 +68,11 @@ export default class BaseSortableTable extends Component {
     this.hideEmptyPlaceholder();
   }
 
-  async sort(field = '', order = 'asc') {
+  sort(field = '', order = 'asc') {
     return Promise.resolve();
   }
 
-  async loadData(take, skip){
+  loadData(take, skip){
     return Promise.resolve([]);
   }
 
