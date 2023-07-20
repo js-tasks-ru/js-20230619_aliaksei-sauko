@@ -3,11 +3,11 @@ import { generateElement } from "./helpers/element-helper.js";
 export default class Component {
 
   constructor() {
-    this.element = generateElement();
+    this.element = null;
   }
 
   get subElements() {
-    const dataElements = this.element.querySelectorAll('[data-element]');
+    const dataElements = this.element?.querySelectorAll('[data-element]') ?? [];
     const elements = {};
 
     dataElements.forEach(e => {
@@ -15,5 +15,9 @@ export default class Component {
     });
 
     return elements;
+  }
+
+  destroy(){
+    this.element = null;
   }
 }
