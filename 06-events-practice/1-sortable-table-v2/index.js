@@ -101,7 +101,7 @@ export default class SortableTable {
     const parent = this.subElements.body.parentElement;
     this.subElements.body.remove();
 
-    const bodyElement = this.#generageBodyElement(this.headerConfig, this.data);
+    const bodyElement = this.#generateBodyElement(this.headerConfig, this.data);
 
     parent.append(bodyElement);
   }
@@ -123,13 +123,13 @@ export default class SortableTable {
     const header = new HeaderTemplate(headerConfig, sorted);
     template.firstElementChild.append(header.element);
 
-    const bodyElement = this.#generageBodyElement(headerConfig, data);
+    const bodyElement = this.#generateBodyElement(headerConfig, data);
     template.firstElementChild.append(bodyElement);
 
     return template.firstElementChild;
   }
 
-  #generageBodyElement(headerConfig = [], data = []) {
+  #generateBodyElement(headerConfig = [], data = []) {
     const template = document.createElement('div');
 
     const body = new BodyTemplate(headerConfig, data);
