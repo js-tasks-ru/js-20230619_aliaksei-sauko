@@ -48,11 +48,6 @@ export default class ColumnChart extends Component {
   // public methods 
 
   destroy() {
-    this.data = null;
-    this.label = null;
-    this.link = null;
-    this.value = null;
-    this.element = null;
   }
 
   updateChartValues(data = {}) {
