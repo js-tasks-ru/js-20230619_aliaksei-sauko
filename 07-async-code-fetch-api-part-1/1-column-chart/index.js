@@ -48,6 +48,11 @@ export default class ColumnChart extends Component {
   // public methods 
 
   destroy() {
+    this.remove();
+  }
+
+  remove() {
+    this.element?.remove();
   }
 
   updateChartValues(data = {}) {
