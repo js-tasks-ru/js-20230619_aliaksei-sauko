@@ -28,7 +28,7 @@ export default class SortableTable extends BaseSortableTable {
     const headerColumn = this.headerConfig.find(h => h.id == id);
 
     if (!headerColumn) {
-      return;
+      return this.data;
     }
 
     this.sorted = { id, order };
