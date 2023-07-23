@@ -19,9 +19,7 @@ export default class ColumnChart extends Component {
     this.value = value;
     this.formatHeading = formatHeading;
 
-    this.element = this.render();
-
-    this.update(this.range.from, this.range.to);
+    this.render();
   }
 
 
@@ -50,11 +48,11 @@ export default class ColumnChart extends Component {
   // public methods 
 
   destroy() {
-    this.data = null;
-    this.label = null;
-    this.link = null;
-    this.value = null;
-    this.element = null;
+    this.remove();
+  }
+
+  remove() {
+    this.element?.remove();
   }
 
   updateChartValues(data = {}) {
@@ -93,17 +91,9 @@ export default class ColumnChart extends Component {
   }
 
   render() {
-    const formattedValue = this.#formatNumbers(this.value);
-    const headerValue = this.formatHeading ? this.formatHeading(formattedValue) : formattedValue;
+    this.element = this.#generateColumnChartElement();
 
-    const title = typeof this.value === 'number' && this.chartData.length > 0
-      ? `Total ${this.label}`
-      : `${this.label}`;
-
-    const href = this.link ?? '#';
-    const titleLink = this.link ? ColumnChart.fillTilteLinkTemplate(href) : '';
-
-    return generateElement(ColumnChart.fillTemplate(this.chartHeight, headerValue, title, titleLink));
+    this.update(this.range.from, this.range.to);
   }
 
   hasData() {
@@ -147,6 +137,20 @@ export default class ColumnChart extends Component {
     const percentValue = (value * 100 / chartHeight).toFixed(0);
 
     return { value: dataValue, percent: percentValue };
+  }
+
+  #generateColumnChartElement() {
+    const formattedValue = this.#formatNumbers(this.value);
+    const headerValue = this.formatHeading ? this.formatHeading(formattedValue) : formattedValue;
+
+    const title = typeof this.value === 'number' && this.chartData.length > 0
+      ? `Total ${this.label}`
+      : `${this.label}`;
+
+    const href = this.link ?? '#';
+    const titleLink = this.link ? ColumnChart.fillTilteLinkTemplate(href) : '';
+
+    return generateElement(ColumnChart.fillTemplate(this.chartHeight, headerValue, title, titleLink));
   }
 
 
