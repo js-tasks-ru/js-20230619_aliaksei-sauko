@@ -8,8 +8,7 @@ export default class BaseSortableTable extends Component {
   static ORDER_ASC = 'asc';
   static ORDER_DESC = 'desc';
   static DEFAULT_PAGE_SIZE = 30;
-  static DEFAULT_SCROLL_TRIGGER_HEIGTH = 100;
-
+  
   constructor() {
     super();
 
@@ -64,6 +63,8 @@ export default class BaseSortableTable extends Component {
 
       bodyElement.append(rowElement);
     });
+
+    this.bodyRowHeight = bodyElement.firstElementChild.getBoundingClientRect().height;
 
     this.hideEmptyPlaceholder();
   }
@@ -125,9 +126,9 @@ export default class BaseSortableTable extends Component {
     const windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
 
     if (!this.isLoading
-      && windowRelativeBottom < document.documentElement.clientHeight + BaseSortableTable.DEFAULT_SCROLL_TRIGGER_HEIGTH) {
+      && windowRelativeBottom < document.documentElement.clientHeight + 2*this.bodyRowHeight) {
 
-      this.isLoading = true;
+        this.isLoading = true;
 
       const skip = this.data.length;
       const take = this.pageSize

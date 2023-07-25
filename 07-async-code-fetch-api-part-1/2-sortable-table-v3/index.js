@@ -18,17 +18,17 @@ export default class SortableTable extends BaseSortableTable {
     this.render();
   }
   
-  render() {
+  async render() {
     this.appendHeaderElements(this.headerConfig, this.sorted);
     
-    return this.sort(this.sorted.id, this.sorted.order);
+    await this.sort(this.sorted.id, this.sorted.order);
   }
 
   sortOnClient(id, order) {
     const headerColumn = this.headerConfig.find(h => h.id == id);
 
     if (!headerColumn) {
-      return;
+      return this.data;
     }
 
     this.sorted = { id, order };
@@ -59,13 +59,13 @@ export default class SortableTable extends BaseSortableTable {
     this.isSortLocally = null;
   }
 
-  sort(field = '', order = 'asc') {
+  async sort(field = '', order = 'asc') {
     super.sort(field, order);
 
     this.showLoading();
 
     if (this.isSortLocally) {
-      return this.loadData(SortableTable.DEFAULT_PAGE_SIZE, 0)
+      await this.loadData(SortableTable.DEFAULT_PAGE_SIZE, 0)
         .then(data => {
           this.data = data;
           return this.sortOnClient(field, order);
@@ -75,7 +75,7 @@ export default class SortableTable extends BaseSortableTable {
           console.log(err);
         });
     } else {
-      return this.sortOnServer(field, order)
+      await this.sortOnServer(field, order)
       .then(data => this.#updateTableData(data));
     } 
   }
