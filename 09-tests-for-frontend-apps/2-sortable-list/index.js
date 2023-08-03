@@ -60,11 +60,13 @@ export default class SortableList extends Component {
     #addHandlers() {
         this.element.addEventListener('pointerdown', this.#handlerDeleteClick, { bubbles: true });
         this.element.addEventListener('pointerdown', this.#handlerListItemMouseDown, { bubbles: true });
+        this.element.addEventListener('dragstart', this.#handlerDragStart, { bubbles: true });
     }
 
     #removeHandlers() {
         this.element?.removeEventListener('pointerdown', this.#handlerDeleteClick);
         this.element?.removeEventListener('pointerdown', this.#handlerListItemMouseDown);
+        this.element?.removeEventListener('dragstart', this.#handlerDragStart);
     }
 
     #elementMoveAt = (clientX, clientY) => {
@@ -107,7 +109,6 @@ export default class SortableList extends Component {
 
         document.addEventListener('pointermove', this.#handlerMouseMove);
         this.#draggableItemElement.addEventListener('pointerup', this.#handlerMouseUp);
-        this.#draggableItemElement.addEventListener('dragstart', this.#handlerDragStart);
     }
 
     #handlerMouseMove = (e) => {
@@ -137,13 +138,16 @@ export default class SortableList extends Component {
     }
 
     #handlerDragStart = (e) => {
-        return false;
+        if (!e.target.dataset.hasOwnProperty('grabHandle')) {
+            return;
+        }
+
+        e.preventDefault();
     }
 
     #handlerMouseUp = (e) => {
         document.removeEventListener('pointermove', this.#handlerMouseMove);
         e.target.removeEventListener('pointerup', this.#handlerMouseUp);
-        e.target.removeEventListener('dragstart', this.#handlerDragStart);
 
         this.#placeholderElement.insertAdjacentElement('afterend', this.#draggableItemElement);
         this.#placeholderElement.remove();
