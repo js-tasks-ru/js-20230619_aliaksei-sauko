@@ -52,11 +52,6 @@ export default class SortableList extends Component {
         this.#placeholderElement.style.width = width + 'px';
     }
 
-    #showPlaceholderElement() {
-        this.#placeholderElement.style.display = '';
-    }
-
-
     #addHandlers() {
         this.element.addEventListener('pointerdown', this.#handlerDeleteClick, { bubbles: true });
         this.element.addEventListener('pointerdown', this.#handlerListItemMouseDown, { bubbles: true });
@@ -103,7 +98,7 @@ export default class SortableList extends Component {
 
         this.#draggableItemElement.classList.add('sortable-list__item_dragging');
 
-        this.#showPlaceholderElement();
+        this.#placeholderElement.style.display = ''; // show placeholder
 
         this.#elementMoveAt(e.clientX, e.clientY);
 
