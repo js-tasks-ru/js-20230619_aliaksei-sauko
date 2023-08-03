@@ -67,9 +67,9 @@ export default class SortableList extends Component {
         this.element?.removeEventListener('pointerdown', this.#handlerListItemMouseDown);
     }
 
-    #elementMoveAt = (pageX, pageY) => {
-        this.#draggableItemElement.style.left = pageX - this.#shiftX + 'px';
-        this.#draggableItemElement.style.top = pageY - this.#shiftY + 'px';
+    #elementMoveAt = (clientX, clientY) => {
+        this.#draggableItemElement.style.left = clientX - this.#shiftX + 'px';
+        this.#draggableItemElement.style.top = clientY - this.#shiftY + 'px';
     }
 
     #handlerListItemMouseDown = (e) => {
@@ -85,8 +85,8 @@ export default class SortableList extends Component {
         this.#draggableItemElement = itemElement;
 
         const itemElementRect = this.#draggableItemElement.getBoundingClientRect();
-        this.#shiftX = e.clientX - itemElementRect.left;
-        this.#shiftY = e.clientY - itemElementRect.top + itemElementRect.height / 2;
+        this.#shiftX = e.clientX - itemElementRect.x;
+        this.#shiftY = e.clientY - itemElementRect.y;
 
         this.#renderPlaceholderElement(itemElementRect.width, itemElementRect.height);
 
@@ -99,12 +99,11 @@ export default class SortableList extends Component {
             this.#draggableItemElement.nextSibling.insertAdjacentElement('beforebegin', this.#placeholderElement);
         }
 
-        this.#draggableItemElement.style.position = 'absolute';
-        this.#draggableItemElement.style.zIndex = 1000;
+        this.#draggableItemElement.classList.add('sortable-list__item_dragging');
 
         this.#showPlaceholderElement();
 
-        this.#elementMoveAt(e.pageX, e.pageY);
+        this.#elementMoveAt(e.clientX, e.clientY);
 
         document.addEventListener('pointermove', this.#handlerMouseMove);
         this.#draggableItemElement.addEventListener('pointerup', this.#handlerMouseUp);
@@ -112,7 +111,7 @@ export default class SortableList extends Component {
     }
 
     #handlerMouseMove = (e) => {
-        this.#elementMoveAt(e.pageX, e.pageY);
+        this.#elementMoveAt(e.clientX, e.clientY);
 
         this.#draggableItemElement.style.display = 'none';
         const elementBelow = document.elementFromPoint(e.clientX, e.clientY);
@@ -148,7 +147,8 @@ export default class SortableList extends Component {
 
         this.#placeholderElement.insertAdjacentElement('afterend', this.#draggableItemElement);
         this.#placeholderElement.remove();
-        this.#draggableItemElement.style = '';  
+        this.#draggableItemElement.classList.remove('sortable-list__item_dragging');
+        this.#draggableItemElement.style = '';
 
         this.#placeholderElement = null;
         this.#draggableItemElement = null;
