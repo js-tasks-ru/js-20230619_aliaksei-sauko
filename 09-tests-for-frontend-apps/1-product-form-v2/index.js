@@ -1,5 +1,4 @@
-import Component from '../../common/component.js';
-import { generateElement } from '../../common/helpers/element-helper.js';
+import Component, { generateElement } from '../../common/component.js';
 import ApiService from '../../common/services/api-service.js';
 import escapeHtml from './utils/escape-html.js';
 import SortableList from '../2-sortable-list/index.js';
