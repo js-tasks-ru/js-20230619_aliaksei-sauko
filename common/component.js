@@ -1,4 +1,5 @@
 import { generateElement } from "./helpers/element-helper.js";
+export * from './helpers/element-helper.js';
 
 export default class Component {
 
