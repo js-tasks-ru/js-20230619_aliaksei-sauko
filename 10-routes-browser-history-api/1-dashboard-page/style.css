@@ -185,7 +185,7 @@
   width: 100%;
   height: 10px;
   /* TODO: uncomment after implementation */
-  /*display: none;*/
+  display: none;
   z-index: 1;
 }
 
