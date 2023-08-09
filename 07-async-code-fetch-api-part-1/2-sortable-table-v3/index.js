@@ -1,5 +1,5 @@
 import fetchJson from './utils/fetch-json.js';
-import BaseSortableTable from '../../common/sortable-table.js';
+import BaseSortableTable from '../../common/base-sortable-table.js';
 import { compare } from '../../common/helpers/comparer-helper.js';
 
 const BACKEND_URL = 'https://course-js.javascript.ru';
