@@ -1,4 +1,5 @@
-import Component, { generateElement } from '../../common/component.js';
+import Component from '../../common/component.js';
+import { generateElement } from '../../common/helpers/element-helper.js';
 
 export default class SortableList extends Component {
     #draggableItemElement = null;

@@ -1,9 +1,14 @@
-export * from './helpers/element-helper.js';
-
 export default class Component {
+  element;
 
-  constructor() {
+  startLoadingCallback;
+  endLoadingCallback;
+
+  constructor({ startLoadingCallback = () => { }, endLoadingCallback = () => { } } = {}) {
     this.element = null;
+    
+    this.startLoadingCallback = startLoadingCallback;
+    this.endLoadingCallback = endLoadingCallback;
   }
 
   get subElements() {

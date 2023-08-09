@@ -1,7 +1,8 @@
-import Component, { generateElement } from '../../common/component.js';
+import Component from '../../common/component.js';
 import ApiService from '../../common/services/api-service.js';
 import escapeHtml from './utils/escape-html.js';
 import SortableList from '../2-sortable-list/index.js';
+import { generateElement } from '../../common/helpers/element-helper.js';
 
 export default class ProductForm extends Component {
   constructor(productId, options = {}) {

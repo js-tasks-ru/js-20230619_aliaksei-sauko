@@ -1,8 +1,9 @@
+import Component from '../../../../../common/component.js';
 import fetchJson from '../../../utils/fetch-json.js';
 
 const BACKEND_URL = 'https://course-js.javascript.ru';
 
-export default class SortableTable {
+export default class SortableTable extends Component {
   element;
   subElements = {};
   data = [];
@@ -10,6 +11,8 @@ export default class SortableTable {
   step = 20;
   start = 1;
   end = this.start + this.step;
+  from;
+  to;
 
   onWindowScroll = async() => {
     const { bottom } = this.element.getBoundingClientRect();
@@ -21,7 +24,7 @@ export default class SortableTable {
 
       this.loading = true;
 
-      const data = await this.loadData(id, order, this.start, this.end);
+      const data = await this.loadData(id, order, this.start, this.end, this.from, this.to);
       this.update(data);
 
       this.loading = false;
@@ -54,7 +57,7 @@ export default class SortableTable {
       if (this.isSortLocally) {
         this.sortOnClient(id, newOrder);
       } else {
-        this.sortOnServer(id, newOrder, 1, 1 + this.step);
+        this.sortOnServer(id, newOrder, 1, 1 + this.step, this.from, this.to);
       }
     }
   };
@@ -68,8 +71,13 @@ export default class SortableTable {
     isSortLocally = false,
     step = 20,
     start = 1,
-    end = start + step
+    end = start + step,
+    from,
+    to,
+    startLoadingCallback, 
+    endLoadingCallback,
   } = {}) {
+    super({ startLoadingCallback, endLoadingCallback });
 
     this.headersConfig = headersConfig;
     this.url = new URL(url, BACKEND_URL);
@@ -78,6 +86,8 @@ export default class SortableTable {
     this.step = step;
     this.start = start;
     this.end = end;
+    this.from = from;
+    this.to = to;
 
     this.render();
   }
@@ -93,22 +103,26 @@ export default class SortableTable {
     this.element = element;
     this.subElements = this.getSubElements(element);
 
-    const data = await this.loadData(id, order, this.start, this.end);
+    const data = await this.loadData(id, order, this.start, this.end, this.from, this.to);
 
     this.renderRows(data);
     this.initEventListeners();
   }
 
-  async loadData(id, order, start = this.start, end = this.end) {
+  async loadData(id, order, start = this.start, end = this.end, from = this.from, to = this.to) {
     this.url.searchParams.set('_sort', id);
     this.url.searchParams.set('_order', order);
     this.url.searchParams.set('_start', start);
     this.url.searchParams.set('_end', end);
+    this.url.searchParams.set('from', from);
+    this.url.searchParams.set('to', to);
 
+    this.startLoadingCallback();
     this.element.classList.add('sortable-table_loading');
 
     const data = await fetchJson(this.url.toString());
 
+    this.endLoadingCallback();
     this.element.classList.remove('sortable-table_loading');
 
     return data;
@@ -172,7 +186,7 @@ export default class SortableTable {
   }
 
   getTableRow(item) {
-    const cells = this.headersConfig.map(({id, template}) => {
+    const cells = this.headersConfig.map(({ id, template }) => {
       return {
         id,
         template
@@ -211,8 +225,8 @@ export default class SortableTable {
     this.subElements.body.innerHTML = this.getTableRows(sortedData);
   }
 
-  async sortOnServer(id, order, start, end) {
-    const data = await this.loadData(id, order, start, end);
+  async sortOnServer(id, order, start, end, from, to) {
+    const data = await this.loadData(id, order, start, end, from, to);
 
     this.renderRows(data);
   }
@@ -234,14 +248,14 @@ export default class SortableTable {
 
     return arr.sort((a, b) => {
       switch (sortType) {
-      case 'number':
-        return direction * (a[id] - b[id]);
-      case 'string':
-        return direction * a[id].localeCompare(b[id], 'ru');
-      case 'custom':
-        return direction * customSorting(a, b);
-      default:
-        return direction * (a[id] - b[id]);
+        case 'number':
+          return direction * (a[id] - b[id]);
+        case 'string':
+          return direction * a[id].localeCompare(b[id], 'ru');
+        case 'custom':
+          return direction * customSorting(a, b);
+        default:
+          return direction * (a[id] - b[id]);
       }
     });
   }
