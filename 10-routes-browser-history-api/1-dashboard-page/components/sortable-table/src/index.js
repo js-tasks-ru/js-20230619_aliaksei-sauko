@@ -10,6 +10,8 @@ export default class SortableTable {
   step = 20;
   start = 1;
   end = this.start + this.step;
+  from;
+  to;
 
   onWindowScroll = async() => {
     const { bottom } = this.element.getBoundingClientRect();
@@ -21,7 +23,7 @@ export default class SortableTable {
 
       this.loading = true;
 
-      const data = await this.loadData(id, order, this.start, this.end);
+      const data = await this.loadData(id, order, this.start, this.end, this.from, this.to);
       this.update(data);
 
       this.loading = false;
@@ -54,7 +56,7 @@ export default class SortableTable {
       if (this.isSortLocally) {
         this.sortOnClient(id, newOrder);
       } else {
-        this.sortOnServer(id, newOrder, 1, 1 + this.step);
+        this.sortOnServer(id, newOrder, 1, 1 + this.step, this.from, this.to);
       }
     }
   };
@@ -68,7 +70,9 @@ export default class SortableTable {
     isSortLocally = false,
     step = 20,
     start = 1,
-    end = start + step
+    end = start + step,
+    from,
+    to,
   } = {}) {
 
     this.headersConfig = headersConfig;
@@ -78,6 +82,8 @@ export default class SortableTable {
     this.step = step;
     this.start = start;
     this.end = end;
+    this.from = from;
+    this.to = to;
 
     this.render();
   }
@@ -93,17 +99,19 @@ export default class SortableTable {
     this.element = element;
     this.subElements = this.getSubElements(element);
 
-    const data = await this.loadData(id, order, this.start, this.end);
+    const data = await this.loadData(id, order, this.start, this.end, this.from, this.to);
 
     this.renderRows(data);
     this.initEventListeners();
   }
 
-  async loadData(id, order, start = this.start, end = this.end) {
+  async loadData(id, order, start = this.start, end = this.end, from = this.from, to = this.to) {
     this.url.searchParams.set('_sort', id);
     this.url.searchParams.set('_order', order);
     this.url.searchParams.set('_start', start);
     this.url.searchParams.set('_end', end);
+    this.url.searchParams.set('from', from);
+    this.url.searchParams.set('to', to);
 
     this.element.classList.add('sortable-table_loading');
 
@@ -211,8 +219,8 @@ export default class SortableTable {
     this.subElements.body.innerHTML = this.getTableRows(sortedData);
   }
 
-  async sortOnServer(id, order, start, end) {
-    const data = await this.loadData(id, order, start, end);
+  async sortOnServer(id, order, start, end, from, to) {
+    const data = await this.loadData(id, order, start, end, from, to);
 
     this.renderRows(data);
   }
