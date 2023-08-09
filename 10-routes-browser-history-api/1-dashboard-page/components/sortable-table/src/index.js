@@ -1,8 +1,9 @@
+import Component from '../../../../../common/component.js';
 import fetchJson from '../../../utils/fetch-json.js';
 
 const BACKEND_URL = 'https://course-js.javascript.ru';
 
-export default class SortableTable {
+export default class SortableTable extends Component {
   element;
   subElements = {};
   data = [];
@@ -73,7 +74,10 @@ export default class SortableTable {
     end = start + step,
     from,
     to,
+    startLoadingCallback, 
+    endLoadingCallback,
   } = {}) {
+    super({ startLoadingCallback, endLoadingCallback });
 
     this.headersConfig = headersConfig;
     this.url = new URL(url, BACKEND_URL);
@@ -113,10 +117,12 @@ export default class SortableTable {
     this.url.searchParams.set('from', from);
     this.url.searchParams.set('to', to);
 
+    this.startLoadingCallback();
     this.element.classList.add('sortable-table_loading');
 
     const data = await fetchJson(this.url.toString());
 
+    this.endLoadingCallback();
     this.element.classList.remove('sortable-table_loading');
 
     return data;
@@ -180,7 +186,7 @@ export default class SortableTable {
   }
 
   getTableRow(item) {
-    const cells = this.headersConfig.map(({id, template}) => {
+    const cells = this.headersConfig.map(({ id, template }) => {
       return {
         id,
         template
@@ -242,14 +248,14 @@ export default class SortableTable {
 
     return arr.sort((a, b) => {
       switch (sortType) {
-      case 'number':
-        return direction * (a[id] - b[id]);
-      case 'string':
-        return direction * a[id].localeCompare(b[id], 'ru');
-      case 'custom':
-        return direction * customSorting(a, b);
-      default:
-        return direction * (a[id] - b[id]);
+        case 'number':
+          return direction * (a[id] - b[id]);
+        case 'string':
+          return direction * a[id].localeCompare(b[id], 'ru');
+        case 'custom':
+          return direction * customSorting(a, b);
+        default:
+          return direction * (a[id] - b[id]);
       }
     });
   }
