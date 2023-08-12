@@ -1,14 +1,8 @@
 export default class Component {
   element;
 
-  startLoadingCallback;
-  endLoadingCallback;
-
-  constructor({ startLoadingCallback = () => { }, endLoadingCallback = () => { } } = {}) {
+  constructor() {
     this.element = null;
-    
-    this.startLoadingCallback = startLoadingCallback;
-    this.endLoadingCallback = endLoadingCallback;
   }
 
   get subElements() {
@@ -22,7 +16,7 @@ export default class Component {
     return elements;
   }
 
-  destroy(){
+  destroy() {
     this.element = null;
   }
 }
