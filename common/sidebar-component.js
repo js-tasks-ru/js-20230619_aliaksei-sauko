@@ -28,12 +28,9 @@ export default class Sidebar extends Component {
         this.#addHandlers();
 
         const activeItem = this.items.find(item => item.id === this.activeId);
-        if (!activeItem) {
-            // todo: return not found
-            this.setActive(this.defaultActiveItem.id);
-        } else {
-            this.setActive(this.activeId);
-        }
+        const activeItemId = activeItem ? this.activeId : this.defaultActiveItem.id;
+
+        this.setActive(activeItemId);
     }
 
     destroy() {
