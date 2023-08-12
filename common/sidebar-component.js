@@ -2,24 +2,24 @@ import Component from "./component.js";
 import { generateElement } from "./helpers/element-helper.js";
 
 export default class Sidebar extends Component {
-    homepage;
+    homepageOptions;
     defaultActiveItem;
     items = [];
     activeId;
 
-    constructor({ homepage = { id: '', link: '/', title: '' }, items = [], activeId = '' }) {
+    constructor({ homepageOptions = { id: '', link: '', title: '' }, items = [], activeId = '' }) {
         super();
 
-        this.homepage = homepage;
         this.items = items;
+        this.homepageOptions = homepageOptions;
         this.activeId = activeId;
-        this.defaultActiveItem = this.items.find(item => item.id === this.homepage.id);
+        this.defaultActiveItem = this.items.find(item => item.id === this.homepageOptions.id);
 
         this.render();
     }
 
     render() {
-        const element = generateElement(this.#getMainTemplate(this.homepage.link, this.homepage.title));
+        const element = generateElement(this.#getMainTemplate(this.homepageOptions.link, this.homepageOptions.title));
 
         this.element = element;
 
@@ -53,7 +53,7 @@ export default class Sidebar extends Component {
             this.element.dispatchEvent(navClickEvent);
 
             const title = item.title;
-            const url = item.id === this.homepage.id ? this.homepage.link : `${this.homepage.link}/${item.id}`;
+            const url = item.id === this.homepageOptions.id ? this.homepageOptions.link : `${this.homepageOptions.link}/${item.id}`;
             window.history.pushState(null, title, url);
             document.title = title;
         });
@@ -128,7 +128,7 @@ export default class Sidebar extends Component {
 
         e.preventDefault();
 
-        this.setActive(this.homepage.id);
+        this.setActive(this.homepageOptions.id);
     }
 
     #handlerPageLinkClick = (e) => {

@@ -45,7 +45,7 @@ export default class Application {
         const homepageId = 'dashboard';
 
         this.#components.sidebar = new Sidebar({
-            homepage: { id: homepageId, link: ROOT_SITE_PATH, title: "shop admin" },
+            homepageOptions: { id: homepageId, link: ROOT_SITE_PATH, title: "shop admin" },
             items: pagesOptions,
             activeId: this.#getPageItem(window.location.pathname)?.id || '',
         });
