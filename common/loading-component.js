@@ -1,6 +1,6 @@
 import Component from "./component.js";
 
-export default class LoadingComponent extends Component {
+export default class LoadableComponent extends Component {
     startLoadingCallback;
     endLoadingCallback;
 

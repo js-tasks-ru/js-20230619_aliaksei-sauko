@@ -1,9 +1,9 @@
-import LoadingComponent from '../../../../../common/loading-component.js';
+import LoadableComponent from '../../../../../common/loading-component.js';
 import fetchJson from '../../../utils/fetch-json.js';
 
 const BACKEND_URL = 'https://course-js.javascript.ru';
 
-export default class SortableTable extends LoadingComponent {
+export default class SortableTable extends LoadableComponent {
   element;
   subElements = {};
   data = [];
