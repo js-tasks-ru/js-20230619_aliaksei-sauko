@@ -8,5 +8,39 @@
   <link rel="stylesheet" href="./styles/all.css">
   <link rel="stylesheet" href="style.css">
 
-  <script src="./app.js" type="module"></script>
+  <script type="module">
+    import Application from "./app.js";
+    import Page from "./index.js";
+
+    const pages = [
+      {
+        id: "dashboard",
+        title: "Dashboard",
+        link: "/",
+        renderElement: () => {
+          const page = new Page();
+
+          return page.element;
+        },
+      },
+      {
+        id: "products",
+        title: "Products",
+        link: "/products",
+      },
+      {
+        id: "categories",
+        title: "Categories",
+        link: "/categories",
+      },
+      {
+        id: "sales",
+        title: "Sales",
+        link: "/sales",
+      },
+    ];
+
+    const app = new Application({ pages });
+    app.render();
+  </script>
 </head>

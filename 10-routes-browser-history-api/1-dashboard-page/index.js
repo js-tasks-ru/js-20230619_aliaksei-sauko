@@ -29,18 +29,20 @@ export default class Page extends Component {
         this.#renderRangePicker();
         this.#renderColumnCharts();
         this.#renderSortableTable();
-
+        
         return this.element;
     }
 
     destroy() {
         this.element?.removeEventListener('date-select', this.#handlerDateSelect);
 
-        this.#components.rangePicker.destroy();
-        this.#components.ordersChart.destroy();
-        this.#components.salesChart.destroy();
-        this.#components.customersChart.destroy();
-        this.#components.sortableTable.destroy();
+        for (const component in this.#components) {
+            if (this.#components.hasOwnProperty(component)) {
+                const element = this.#components[component];
+
+                element.destroy();
+            }
+        }
 
         this.remove();
 
