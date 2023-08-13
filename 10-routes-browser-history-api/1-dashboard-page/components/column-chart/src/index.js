@@ -1,8 +1,9 @@
+import LoadableComponent from '../../../../../common/loading-component.js';
 import fetchJson from '../../../utils/fetch-json.js';
 
 const BACKEND_URL = 'https://course-js.javascript.ru';
 
-export default class ColumnChart {
+export default class ColumnChart extends LoadableComponent {
   element;
   subElements = {};
   chartHeight = 50;
@@ -15,8 +16,12 @@ export default class ColumnChart {
     range = {
       from: new Date(),
       to: new Date(),
-    }
+    },
+    startLoadingCallback = () => { }, 
+    endLoadingCallback = () => { },
   } = {}) {
+    super({ startLoadingCallback, endLoadingCallback });
+
     this.url = new URL(url, BACKEND_URL);
     this.range = range;
     this.label = label;
@@ -43,6 +48,8 @@ export default class ColumnChart {
   }
 
   async loadData(from, to) {
+    this.startLoadingCallback();
+
     this.element.classList.add('column-chart_loading');
     this.subElements.header.textContent = '';
     this.subElements.body.innerHTML = '';
@@ -59,6 +66,8 @@ export default class ColumnChart {
       this.subElements.body.innerHTML = this.getColumnBody(data);
 
       this.element.classList.remove('column-chart_loading');
+
+      this.endLoadingCallback();
     }
   }
 
@@ -118,5 +127,7 @@ export default class ColumnChart {
 
   destroy() {
     this.element.remove();
+
+    super.destroy();
   }
 }

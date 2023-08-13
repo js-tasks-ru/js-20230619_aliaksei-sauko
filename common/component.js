@@ -1,7 +1,5 @@
-import { generateElement } from "./helpers/element-helper.js";
-export * from './helpers/element-helper.js';
-
 export default class Component {
+  element;
 
   constructor() {
     this.element = null;
@@ -18,7 +16,7 @@ export default class Component {
     return elements;
   }
 
-  destroy(){
+  destroy() {
     this.element = null;
   }
 }
