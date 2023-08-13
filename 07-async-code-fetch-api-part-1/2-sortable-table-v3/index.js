@@ -13,14 +13,14 @@ export default class SortableTable extends BaseSortableTable {
     this.data = data;
     this.sorted = sorted;
     this.url = url;
-    this.isSortLocally = isSortLocally;   
-    
+    this.isSortLocally = isSortLocally;
+
     this.render();
   }
-  
+
   async render() {
     this.appendHeaderElements(this.headerConfig, this.sorted);
-    
+
     await this.sort(this.sorted.id, this.sorted.order);
   }
 
@@ -65,19 +65,16 @@ export default class SortableTable extends BaseSortableTable {
     this.showLoading();
 
     if (this.isSortLocally) {
-      await this.loadData(SortableTable.DEFAULT_PAGE_SIZE, 0)
-        .then(data => {
-          this.data = data;
-          return this.sortOnClient(field, order);
-        })
-        .then(data => this.#updateTableData(data))
-        .catch(err => {
-          console.log(err);
-        });
+      try {
+        this.data = await this.loadData(SortableTable.DEFAULT_PAGE_SIZE, 0);
+        const sortedData = this.sortOnClient(field, order);
+        this.#updateTableData(sortedData);
+      } catch (err) { }
+
     } else {
       await this.sortOnServer(field, order)
-      .then(data => this.#updateTableData(data));
-    } 
+        .then(data => this.#updateTableData(data));
+    }
   }
 
   loadData(take, skip) {
@@ -89,7 +86,7 @@ export default class SortableTable extends BaseSortableTable {
   //
   // private
 
-  #updateTableData(data){
+  #updateTableData(data) {
     this.data = data;
     this.updateBody();
     this.hideLoading();
